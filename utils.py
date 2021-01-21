@@ -6,16 +6,16 @@ import re
 
 import numpy as np
 from stop_words import get_stop_words
-from textblob import TextBlob
-from textblob.sentiments import NaiveBayesAnalyzer
+from textblob import Textblob
 
 STOP_WORDS_LIST_EN = get_stop_words("english")
 STOP_WORDS_LIST_SP = get_stop_words("spanish")
-EXTRA_STOP_WORDS = ["https", "http", "t", "t co", "co", 
-                    "Hola", "mensaje", "hola",
-                    "ofrecemos", "m", "s", "Hola encantada"]
+
+### Add extra stop words for special cases
+EXTRA_STOP_WORDS = []
 
 STOP_WORDS_LIST = STOP_WORDS_LIST_EN+STOP_WORDS_LIST_SP+EXTRA_STOP_WORDS
+
 def clean_tweet(txt):
     """
         Function that cleans tweets removing hashtags, retweets and urls.
@@ -45,10 +45,6 @@ def get_polarity(txt):
     """
         Getting Polarity using TextBlob.
     """
-    # if TextBlob(txt).sentiment.polarity == 0:
-    #     polarity = TextBlob(txt).sentiment.polarity + np.random.choice([-0.01, 0, 0.01])
-    # else:
-    #     polarity = TextBlob(txt).sentiment.polarity
     return TextBlob(txt).sentiment.polarity
 
 def get_score(polarity):
