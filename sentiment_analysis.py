@@ -18,15 +18,6 @@ s3_client = SESSION.client("s3")
 start = datetime.datetime.now()
 
 print("Attempting to read tweets data")
-
-# csv_obj = s3_client.get_object(Bucket='dg-twitter-test', Key=f"tweet_raw_data.csv")
-# body = csv_obj['Body']
-# csv_string = body.read().decode('utf-8')
-# tweet_data = pd.read_csv(StringIO(csv_string))
-# tweet_data = tweet_data[["Text"]]
-
-# tweet_data = tweet_data.loc[:10000]
-# tweet_data.columns = ["Text"]
 tweet_data = pd.read_csv("data/out.csv", header=None)
 tweet_data.columns = ["Date Created", "Text", "Location", 
                       "Retweet_Flag", "Quote FLag", "Place"]
@@ -70,7 +61,6 @@ values = tweet_data.groupby(['Score']).size().values
 plt.figure()
 plt.bar(labels, values, color="khaki")
 plt.title("Sentiment Score Distribution")
-# plt.axis("off")
 plt.savefig("results/plot.png")
 plt.show()
 
