@@ -1,0 +1,7 @@
+textblob
+matplotlib
+click
+pandas
+numpy
+tweepy
+wordcloud
