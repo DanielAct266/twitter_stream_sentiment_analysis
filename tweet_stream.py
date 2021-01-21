@@ -63,7 +63,8 @@ class TweetsListener(StreamListener):
                 print("\n ######################")
                 print(f"{counter} tweets extracted")
                 print("######################\n")
-
+            
+            ### In this case the limit of tweets is 100
             if counter == 100:
                 print("\n ######################")
                 print("Tweets Limit Reached!")
