@@ -1,8 +1,9 @@
 __pycache__
 
-data/out.csv
+out.csv
 tests
 data_analytics.py
 lda_model.py
 sentiments.py
 results
+.DS_Store
