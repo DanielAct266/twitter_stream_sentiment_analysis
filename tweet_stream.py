@@ -59,7 +59,7 @@ class TweetsListener(StreamListener):
 
         with open(f"data/out.csv", "a", encoding='utf-8') as out:
             global counter
-            counter+=1
+            counter += 1
             csv_out = csv.writer(out)
             data = (str(status.created_at.date()),
                     text, status.user.location, is_retweet, 
@@ -68,10 +68,10 @@ class TweetsListener(StreamListener):
             csv_out.writerow(data)
             
             if counter == self.tweet_limit:
-                print("\n ######################")
-                print("Tweets Limit Reached!")
-                print(f"{counter} tweets extracted")
-                print("######################\n")
+                print("\n\n###########################")
+                print("## Tweets Limit Reached! ##")
+                print(f"### {counter} tweets extracted ###")
+                print("###########################\n\n")
                 sys.exit()
 
     def on_error(self, status_code):
@@ -89,7 +89,7 @@ class TweetsListener(StreamListener):
 
 def main(topic, tweet_limit):
 
-    tweet_listener = TweetsListener(tweet_limit)
+    tweet_listener = TweetsListener(int(tweet_limit))
     twitter_stream = Stream(auth, tweet_listener, tweet_mode="extended_tweet")
     twitter_stream.filter(track=[topic], languages=["en"])
 
