@@ -2,4 +2,6 @@
 
 This code implements an architecture for streaming twitter data, then processing it with a sentiment analysis tool and finally upload the processed data to Amazon S3.
 
+Author: Daniel Guerra Valdivia
+
 ![Alt text](data/Twitter_AWS.svg?raw=true "Title")
