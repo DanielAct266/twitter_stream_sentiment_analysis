@@ -3,9 +3,7 @@ from io import StringIO
 
 import boto3
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import tweepy
 from wordcloud import WordCloud
 
 from settings.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
