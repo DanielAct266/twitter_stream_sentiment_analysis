@@ -6,7 +6,7 @@ import re
 
 import numpy as np
 from stop_words import get_stop_words
-from textblob import Textblob
+from textblob import TextBlob
 
 STOP_WORDS_LIST_EN = get_stop_words("english")
 STOP_WORDS_LIST_SP = get_stop_words("spanish")
