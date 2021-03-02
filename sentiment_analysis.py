@@ -1,5 +1,6 @@
 import datetime
 from io import StringIO
+import os
 
 import boto3
 import matplotlib.pyplot as plt
@@ -53,6 +54,7 @@ print(f"{round(negative.shape[0]/(tweet_data.shape[0])*100, 6)} % of Negative tw
 print("##################################################################")
 print("##################################################################\n")
 
+os.makedirs("results", exist_ok=True)
 print("Plotting Score Distribution")
 labels = tweet_data.groupby(['Score']).count().index.values
 values = tweet_data.groupby(['Score']).size().values
