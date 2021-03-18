@@ -7,3 +7,5 @@ lda_model.py
 sentiments.py
 results
 .DS_Store
+
+data/
