@@ -14,7 +14,7 @@ STOP_WORDS_LIST_SP = get_stop_words("spanish")
 ### Add extra stop words for special cases
 EXTRA_STOP_WORDS = []
 
-STOP_WORDS_LIST = STOP_WORDS_LIST_EN+EXTRA_STOP_WORDS
+STOP_WORDS_LIST = STOP_WORDS_LIST_EN + EXTRA_STOP_WORDS
 
 def clean_tweet(txt):
     """

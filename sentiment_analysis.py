@@ -1,6 +1,7 @@
 import datetime
 from io import StringIO
 import os
+from time import perf_counter
 
 import boto3
 import matplotlib.pyplot as plt
@@ -10,11 +11,13 @@ from wordcloud import WordCloud
 from settings.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from utils import clean_tweet, get_subjectivity, get_polarity, get_score, drop_stop_words
 
+plt.style.use("ggplot")
+
 SESSION = boto3.Session(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 s3 = SESSION.resource('s3')
 s3_client = SESSION.client("s3")
 
-start = datetime.datetime.now()
+start = perf_counter()
 
 print("Attempting to read tweets data")
 tweet_data = pd.read_csv("data/out.csv", header=None)
@@ -59,7 +62,7 @@ print("Plotting Score Distribution")
 labels = tweet_data.groupby(['Score']).count().index.values
 values = tweet_data.groupby(['Score']).size().values
 plt.figure()
-plt.bar(labels, values, color="khaki")
+plt.bar(labels, values, color="darkred")
 plt.title("Sentiment Score Distribution")
 plt.savefig("results/plot.png")
 plt.show()
@@ -71,7 +74,7 @@ word_cloud = WordCloud(width=600, height=400).generate(words)
 
 plt.imshow(word_cloud)
 plt.axis("off")
-plt.savefig("results/wordcloud.png")
+plt.savefig(f"results/wordcloud_{datetime.date.today()}.png")
 plt.show()
 
 print(f"Boto3 Session:{SESSION}")
@@ -83,6 +86,9 @@ tweet_data.to_csv(csv_buffer)
 s3.Object("dg-twitter-test", f"raw_data_{datetime.date.today()}.csv").put(Body=csv_buffer.getvalue())
 print("File Successfully Saved into S3!!!")
 
-end = datetime.datetime.now()
+end = perf_counter()
 
-print(f"The execution took a time of: {end - start}")
+print(f"The execution took a time of: {end - start} \n")
+
+print("##################################################################")
+print("##################################################################\n")

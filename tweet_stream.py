@@ -13,7 +13,7 @@ from settings.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 
 auth = OAuthHandler(KEY, SECRET)
 auth.set_access_token(TOKEN, TOKEN_SECRET)
-api = API(auth)
+api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 counter = 0
 
 class TweetsListener(StreamListener):
@@ -22,6 +22,7 @@ class TweetsListener(StreamListener):
         Custom tweet logging and extracting.
         Saves tweets extracted in an output csv file
     """
+    
     def __init__(self, tweet_limit):
         """
             Redefining Constructor: adding a limit of tweets to stream.
@@ -90,8 +91,12 @@ class TweetsListener(StreamListener):
 def main(topic, tweet_limit):
 
     tweet_listener = TweetsListener(int(tweet_limit))
-    twitter_stream = Stream(auth, tweet_listener, tweet_mode="extended_tweet")
-    twitter_stream.filter(track=[topic], languages=["en"])
+    twitter_stream = Stream(auth, tweet_listener)
+
+    topics = [topic, "volkswagen", "VW", "VWCV_official", 
+              "VWnews", "vw", "das auto", "Volkswagen", ]
+
+    twitter_stream.filter(track=topics, languages=["en"])
 
 if __name__ == "__main__":
     main()
